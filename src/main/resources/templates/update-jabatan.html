@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Ubah Jabatan</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+	<div class="container">
+	<br><br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+				 <div class="card-header" align="center">
+                    <h3>Ubah Jabatan</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/jabatan/ubah}" th:object="${jabatan}" method="POST">
+                    <input type="hidden" name="id" th:value="*{id}" />
+                        <div class="form-group row">
+                            <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="nama" name="nama" th:value="*{nama}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="deskripsi" class="col-sm-3 col-form-label">Deskripsi</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="deskripsi" name="deskripsi" th:value="*{deskripsi}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="gajiPokok" class="col-sm-3 col-form-label">Gaji Pokok</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" id="gajiPokok" name="gajiPokok" th:value="*{gajiPokok}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-11">
+                            	<br>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+	</div>
+	</body>
+</html>

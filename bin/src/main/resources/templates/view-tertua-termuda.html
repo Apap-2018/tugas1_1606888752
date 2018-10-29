@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Pegawai Termuda dan Tertua</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        <br><br>
+            <div class="card">
+                <div class="card-header" align="center">
+            		<h4 th:text="'Data Pegawai Termuda'"></h4>
+            	</div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td><b>NIP</b></td>
+                            <td th:text="${pegawaiTermuda.getNip()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nama</b></td>
+                            <td th:text="${pegawaiTermuda.getNama()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tempat Lahir</b></td>
+                            <td th:text="${pegawaiTermuda.getTempatLahir()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tanggal Lahir</b></td>
+                            <td th:text="${pegawaiTermuda.getTanggalLahir()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tahun Masuk</b></td>
+                            <td th:text="${pegawaiTermuda.getTahunMasuk()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nama Instansi</b></td>
+                            <td th:text="${pegawaiTermuda.getInstansi().getNama()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Jabatan</b></td>
+                            <td>
+                                <div th:each="jabatan : ${pegawaiTermuda.jabatanList}">
+                                    <span th:text="${jabatan.getNama()}"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+        <br><br>
+            <div class="card">
+                <div class="card-header" align="center">
+            		<h4 th:text="'Data Pegawai Tertua'"></h4>
+            	</div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td><b>NIP</b></td>
+                            <td th:text="${pegawaiTertua.getNip()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nama</b></td>
+                            <td th:text="${pegawaiTertua.getNama()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tempat Lahir</b></td>
+                            <td th:text="${pegawaiTertua.getTempatLahir()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tanggal Lahir</b></td>
+                            <td th:text="${pegawaiTertua.getTanggalLahir()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tahun Masuk</b></td>
+                            <td th:text="${pegawaiTertua.getTahunMasuk()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nama Instansi</b></td>
+                            <td th:text="${pegawaiTertua.getInstansi().getNama()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Jabatan</b></td>
+                            <td>
+                                <div th:each="jabatan : ${pegawaiTertua.jabatanList}">
+                                    <span th:text="${jabatan.getNama()}"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

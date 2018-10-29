@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--  <object th:include="fragments/fragment :: title" th:remove ="tag"></object> -->
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<link rel="stylesheet" type="text/css"
+	th:href="@{//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css}" />
+</head>
+
+
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+
+	
+
+	<div class="container-fluid">
+		<br>
+		<h3>Cari Pegawai</h3>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="container-fluid">
+						<form  th:action="@{/pegawai/cari}" th:object="${pegawai}" method ="GET">
+  							<div class="form-group">
+  							<label for="provinsi">Provinsi</label>
+  								<select  class="form-control" required="required" name="idProvinsi" id="provinsi">
+									<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+						      		<option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" ></option>
+						    	</select>
+							</div>
+							<div class="form-group">
+							<label for="instansi">Nama Instansi</label>
+								<select class="custom-select" name="idInstansi" id="instansi" required="required">
+									<option disabled="disabled" selected="selected" >Pilih Instansi</option>
+   	 								<option th:each="instansi : ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" ></option>
+								</select>
+  							</div>
+  							<div class="form-group">
+  							<label for="jabatan">Jabatan</label>
+							<select style="margin: 5px;"class="custom-select" name="idJabatan">
+									<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
+								<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+							</select>
+  							</div>
+  							<button type="submit" class="btn btn-primary">Cari</button>
+						</form>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+	<script type="text/javascript"
+		src=https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js></script>
+
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+	<div class="container-fluid">
+	
+		<br>
+		<h3>Hasil Pencarian</h3>
+		
+			
+				<div class="card">
+					
+					<table id="semuaJabatan" class="display responsive nowrap"
+			style="width: 100%">
+
+			<!-- Header Table -->
+			<thead>
+				<tr>
+					<th>No.</th>
+									<th>NIP</th>
+									<th>Nama</th>
+									<th>Tempat Lahir</th>
+									<th>Tanggal Lahir</th>
+									<th>Tahun Masuk</th>
+									<th>Jabatan</th>
+				
+				</tr>
+			</thead>
+			<!-- Footer Table -->
+			<tfoot>
+				<tr>
+					<th>No.</th>
+									<th>NIP</th>
+									<th>Nama</th>
+									<th>Tempat Lahir</th>
+									<th>Tanggal Lahir</th>
+									<th>Tahun Masuk</th>
+									<th>Jabatan</th>
+				</tr>
+			</tfoot>
+
+			<tbody>
+				<tr th:each="pegawai,iterationStatus : ${listPegawai}">
+									<td th:text="${iterationStatus.count}"></td>
+									<td th:text="${pegawai.nip}"></td>
+									<td th:text="${pegawai.nama}"></td>
+									<td th:text="${pegawai.tempat_lahir}"></td>
+   									<td th:text="${pegawai.tanggalLahir}"></td>
+   									<td th:text="${pegawai.tahunMasuk}"></td><td>
+      								<ul th:each="jabatan : ${pegawai.ListJabatan}">
+ 										<li th:text="${jabatan.nama}"/>	
+ 									</ul>
+ 									</td>
+								</tr>
+
+			</tbody>
+		</table>
+	</div>
+	</div>
+
+	
+
+</body>
+
+<script>
+	
+	$(document).ready(function() {
+	    $('#semuaJabatan').DataTable( {
+	        initComplete: function () {
+	            this.api().columns().every( function () {
+	                var column = this;
+	                var select = $('<select><option value=""></option></select>')
+	                    .appendTo( $(column.footer()).empty() )
+	                    .on( 'change', function () {
+	                        var val = $.fn.dataTable.util.escapeRegex(
+	                            $(this).val()
+	                        );
+	 
+	                        column
+	                            .search( val ? '^'+val+'$' : '', true, false )
+	                            .draw();
+	                    } );
+	 
+	                column.data().unique().sort().each( function ( d, j ) {
+	                    select.append( '<option value="'+d+'">'+d+'</option>' )
+	                } );
+	            } );
+	        }
+	    } );
+	} );
+</script>
+
+</html>

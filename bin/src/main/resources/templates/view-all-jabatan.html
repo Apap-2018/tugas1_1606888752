@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Detail Semua Jabatan</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<link rel="stylesheet" type="text/css" th:href="@{//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css}"/>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<script type="text/javascript"
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+ <script type="text/javascript"
+  src=https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js></script>
+
+ <script type="text/javascript"
+  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+        <br><br>
+            <div class="card">
+                <div class="card-header" align="center">
+                    <h3>List Semua Jabatan</h3>
+                </div>
+                <div class="card-body">
+                    <table id="allJabatan" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                        <tr align="center">
+                            <th style="vertical-align: middle;">Nama</th>
+                            <th style="vertical-align: middle;">Deskripsi</th>
+                            <th style="vertical-align: middle;">Gaji Pokok</th>
+                            <th style="vertical-align: middle;">Jumlah Pegawai</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <span th:each="jabatan : *{data}">
+							<tr>
+								<td style="vertical-align: middle;" th:text="${jabatan.key.nama}"></td>
+								<td style="vertical-align: middle;" th:text="${jabatan.key.deskripsi}"></td>
+								<td align="center" style="vertical-align: middle;" th:text="${jabatan.key.gajiPokok}"></td>
+								<td align="center" style="vertical-align: middle;" th:text="${jabatan.value}"></td>
+							</tr>
+						</span>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#allJabatan').DataTable();
+    } );
+</script>
+</body>

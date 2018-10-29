@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Detail Jabatan</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        <br><br>
+            <div class="card">
+                <div class="card-header" align="center">
+            		<h4 th:text="'Detail Jabatan '+${jabatan.getNama()}"></h4>
+            	</div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td><b>Nama</b></td>
+                            <td th:text="${jabatan.getNama()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Deskripsi</b></td>
+                            <td th:text="${jabatan.getDeskripsi()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Gaji Pokok</b></td>
+                            <td th:text="'Rp'+${jabatan.getGajiPokok()}"></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-2">
+            <form th:action="@{/jabatan/ubah}" method="GET">
+                    <button th:value="${jabatan.getId()}" type="submit" name="idJabatan" class="btn btn-primary btn-lg">Ubah</button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form th:action="@{/jabatan/hapus}" method="POST">
+                <button th:value="${jabatan.getId()}" type="submit" name="idJabatan" class="btn btn-danger btn-lg">Hapus</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

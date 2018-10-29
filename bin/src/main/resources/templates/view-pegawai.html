@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Detail Pegawai</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+	<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        <br><br>
+            <div class="card">
+            
+                <div class="card-header" align="center">
+            		<h4 th:text="'Data Pegawai: '+${pegawai.getNip()}"></h4>
+            	</div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td><b>NIP</b></td>
+                            <td th:text="${pegawai.nip}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nama</b></td>
+                            <td th:text="${pegawai.nama}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tempat Lahir</b></td>
+                            <td th:text="${pegawai.getTempatLahir()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tanggal Lahir</b></td>
+                            <td th:text="${pegawai.getTanggalLahir()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tahun Masuk</b></td>
+                            <td th:text="${pegawai.getTahunMasuk()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nama Instansi</b></td>
+                            <td th:text="${pegawai.getInstansi().getNama()} + ' - ' + ${pegawai.getInstansi().getProvinsi().getNama()}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Jabatan</b></td>
+                            <td th:each="jabatan,iterationStatus : *{pegawai.jabatanList}">
+                                    <p th:text="${jabatan.getNama()}"></p>                                 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Gaji</b></td>
+                            <td th:text="'Rp'+${gaji}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form class="col-md-6"th:action="@{/pegawai/ubah/{nip}(nip=${pegawai.nip})}">
+					<button type="submit" class="btn btn-primary">Ubah</button>
+				</form>
+				<br>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>	
+</body>
+
+</html>
